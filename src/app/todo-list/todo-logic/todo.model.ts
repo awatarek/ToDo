@@ -2,6 +2,10 @@ import { Priority } from './priority.enum';
 
 export class Todo {
     id: number;
-    dueDate: string;
-    priority: Priority;
+    text: string;
+
+    constructor(id: number, text: string) {
+        this.id = id;
+        this.text = text;
+      }
 }

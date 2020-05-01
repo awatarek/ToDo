@@ -1,0 +1,27 @@
+.content
+{
+    margin: 5%;
+}
+
+.mat-accordion{
+    flex-basis: 0;
+    justify-content: space-between;
+    text-align: left;
+    align-items: center;
+
+    .description
+    {
+        margin-bottom: 15px;
+    }
+    
+    .mat-description
+    {
+        display: block;
+        width: 100px;
+    }
+    button
+    {
+        margin-left: 10px;
+    }
+
+}
