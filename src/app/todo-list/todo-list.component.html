@@ -1,16 +1,16 @@
-<button (click)="whereIsJson()">Test</button>
+
 <div class="content">
   <div >
     <input type="text" [(ngModel)]="text" value={{text}}/>
-    <button class="btn btn-primary" (click)="addTask(text)">Submit</button>
+    <button class="btn btn-primary" (click)="addTodo()">Submit</button>
   </div>
-
+  <h3>Do zrobienia</h3>
   <mat-accordion>
-    <div *ngFor="let record of data">
-      <mat-expansion-panel>
+    <div *ngFor="let record of this.tasks">
+     <mat-expansion-panel>
         <mat-expansion-panel-header>
           <mat-panel-title>
-            {{record.task}}
+            {{record.text}}
           </mat-panel-title>
           <mat-panel-description class="mat-description">
             <div *ngIf="record.priority===1">Mały priorytet</div>
@@ -25,7 +25,35 @@
 
         <div class="row align-items-center">
           <button mat-raised-button color="primary" (click)="done(record.id)">Wykonane</button>
-          <button mat-raised-button color="primary" (click)="edit(record.id)">Edytuj</button>
+          <button mat-raised-button color="primary" (click)="edit(record.id, record.text, 'okon')">Edytuj</button>
+          <button mat-raised-button color="warn" (click)="remove(record.id)">Usuń</button>
+        </div>
+      </mat-expansion-panel>
+    </div>
+  </mat-accordion>
+
+  <h3>Wykonane</h3>
+  <mat-accordion>
+    <div *ngFor="let record of this.doneTasks">
+     <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{record.text}}
+          </mat-panel-title>
+          <mat-panel-description class="mat-description">
+            <div *ngIf="record.priority===1">Mały priorytet</div>
+            <div *ngIf="record.priority===2">Średni priorytet</div>
+            <div *ngIf="record.priority===3">Duży priorytet</div>
+            <div *ngIf="record.priority===4">Na wczoraj</div>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div class="description">
+          {{record.description}}
+        </div>
+
+        <div class="row align-items-center">
+          <button mat-raised-button color="primary" (click)="done(record.id)">Wykonane</button>
+          <button mat-raised-button color="primary" (click)="edit(record.id, record.text, 'okon')">Edytuj</button>
           <button mat-raised-button color="warn" (click)="remove(record.id)">Usuń</button>
         </div>
       </mat-expansion-panel>

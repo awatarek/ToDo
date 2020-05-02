@@ -1,43 +1,47 @@
 import { Component, OnInit } from '@angular/core';
-import { Todo } from './todo-logic';
+import { Todo, TodoService } from './todo-logic';
 
 @Component({
   selector: 'todo-list',
   templateUrl: './todo-list.component.html',
-  styleUrls: ['./todo-list.component.scss']
+  styleUrls: ['./todo-list.component.scss'],
+  providers: [ TodoService ]
 })
 export class TodoListComponent implements OnInit {
-  public data: Todo[];
-  public nextId: number;
+  public text:string;
+  public tasks: Todo;
+  public doneTasks: Todo;
 
-  constructor() {
-    const data = this.getTask();
-    let nextID = 1;
+  constructor(private todoService: TodoService) {
+    
   }
 
-  ngOnInit() {
-    const data = this.getTask();
+  ngOnInit() { 
+    this.todoService.onStart();
+    this.tasks = this.todoService.getTasks('todos');
   }
-  public addTask(text: string): void {
-    let task = new Todo(this.nextId, text);
-    let data = this.getTask();
-    console.log(this.data);
-    this.setLocalStorageTasks(data);
-    this.nextId++;
+  public refresh(){
+    this.tasks = this.todoService.getTasks('todos');
+    this.doneTasks = this.todoService.getTasks('doneTodos');
   }
 
-  public getTask(){
-    const localStorageItem = JSON.parse(localStorage.getItem('tasks'));
-    return localStorageItem == null ? [] : localStorage.tasks;
+  public addTodo(){
+    this.todoService.addTodo('todos', this.text);
+    this.refresh();
+  }
+  public remove(id){
+    this.todoService.remove(id);
+    this.refresh();
   }
 
-  private setLocalStorageTasks(todo: Todo[]): void{
-    localStorage.setItem('tasks', JSON.stringify({ data: todo }));
+  public edit(id, text, oldtext){
+    this.todoService.edit(id, text, oldtext);
+    this.refresh();
   }
 
-  public removeTask(id: number):void {
-    let tasks = this.getTask()
-    tasks = tasks.filter( (task) => task.id !== id );
+  public done(id){
+    this.todoService.done(id)
+    this.refresh();
   }
 
 }

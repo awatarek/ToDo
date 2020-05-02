@@ -1,4 +1,4 @@
-import { Priority } from './priority.enum';
+import { Priority } from '../enums';
 
 export class Todo {
     id: number;
