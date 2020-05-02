@@ -7,19 +7,16 @@ import { CompileShallowModuleMetadata } from '@angular/compiler';
 })
 export class TodoService 
 {
-    public taskId;
     public task;
     public tasks;
     public cacheID;
     public doneTasks;
 
     public onStart(){
-      if(this.taskId == null){
-        this.taskId='0';
-      }
-
-        localStorage.setItem('Id Task', this.taskId);
+      if(localStorage.getItem('Id Task') == null){
+        localStorage.setItem('Id Task', '0');
         this.tasks = [];
+      }
     }
 
     public higerTaskId(){
@@ -32,16 +29,15 @@ export class TodoService
     {
         this.higerTaskId()
         this.task = new Todo(this.cacheID, inputText);
-        if(storageName=='tasks'){
+        if(storageName=='todos'){
           this.tasks = this.getTasks(storageName);
           this.tasks.push(this.task);
           this.saveToStorage(storageName, this.tasks);
-        } else if(storageName == 'doneTodos'){
+        } else if(storageName=='doneTodos'){
           this.doneTasks = this.getTasks(storageName);
           this.doneTasks.push(this.task);
           this.saveToStorage(storageName, this.doneTasks);
         }
-
     }
 
     public getTasks(storageName: string){

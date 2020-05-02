@@ -18,7 +18,7 @@ export class TodoListComponent implements OnInit {
 
   ngOnInit() { 
     this.todoService.onStart();
-    this.tasks = this.todoService.getTasks('todos');
+    this.refresh();    
   }
   public refresh(){
     this.tasks = this.todoService.getTasks('todos');

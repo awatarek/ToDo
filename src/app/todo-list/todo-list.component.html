@@ -50,12 +50,6 @@
         <div class="description">
           {{record.description}}
         </div>
-
-        <div class="row align-items-center">
-          <button mat-raised-button color="primary" (click)="done(record.id)">Wykonane</button>
-          <button mat-raised-button color="primary" (click)="edit(record.id, record.text, 'okon')">Edytuj</button>
-          <button mat-raised-button color="warn" (click)="remove(record.id)">Usuń</button>
-        </div>
       </mat-expansion-panel>
     </div>
   </mat-accordion>
