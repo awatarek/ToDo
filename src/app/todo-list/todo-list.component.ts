@@ -8,40 +8,49 @@ import { Todo, TodoService } from './todo-logic';
   providers: [ TodoService ]
 })
 export class TodoListComponent implements OnInit {
-  public text:string;
+  public title: string;
+  public description: string;
   public tasks: Todo;
   public doneTasks: Todo;
+  public newText: string;
 
   constructor(private todoService: TodoService) {
-    
   }
 
-  ngOnInit() { 
+  ngOnInit() {
     this.todoService.onStart();
-    this.refresh();    
+    this.refresh();
   }
-  public refresh(){
+  public refresh() {
     this.tasks = this.todoService.getTasks('todos');
     this.doneTasks = this.todoService.getTasks('doneTodos');
   }
 
-  public addTodo(){
-    this.todoService.addTodo('todos', this.text);
+  public addTodo() {
+    this.todoService.addTodo('todos', this.title, this.description, '');
     this.refresh();
   }
-  public remove(id){
-    this.todoService.remove(id);
-    this.refresh();
-  }
-
-  public edit(id, text, oldtext){
-    this.todoService.edit(id, text, oldtext);
+  public remove(storageName, id) {
+    this.todoService.remove(storageName, id);
     this.refresh();
   }
 
-  public done(id){
-    this.todoService.done(id)
+  public edit(id: number, odlTitle: string, oldDescriptio: string, newTitle: string, newDescription: string) {
+    if (newTitle === '') {
+      newTitle = odlTitle;
+    }
+    if (newDescription === '') {
+      newDescription = oldDescriptio;
+    }
+    this.todoService.edit(id, newTitle, newDescription);
+    this.newText = '';
+    this.refresh();
+  }
+
+  public done(id) {
+    this.todoService.done(id);
     this.refresh();
   }
 
 }
+

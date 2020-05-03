@@ -1,11 +1,11 @@
-import { Priority } from '../enums';
-
 export class Todo {
     id: number;
-    text: string;
+    title: string;
+    description: string;
 
-    constructor(id: number, text: string) {
+    constructor(id: number, title: string, description: string) {
         this.id = id;
-        this.text = text;
+        this.title = title;
+        this.description = description;
       }
 }
