@@ -36,10 +36,10 @@ export class TodoListComponent implements OnInit {
   }
 
   public edit(id: number, odlTitle: string, oldDescriptio: string, newTitle: string, newDescription: string) {
-    if (newTitle === '') {
+    if (newTitle === '' || newTitle == undefined || newTitle == null) {
       newTitle = odlTitle;
     }
-    if (newDescription === '') {
+    if (newDescription === '' || newDescription == undefined || newDescription == null) {
       newDescription = oldDescriptio;
     }
     this.todoService.edit(id, newTitle, newDescription);

@@ -1,30 +1,31 @@
-
 <div class="content">
   <div>
-    Nazwa zadania: <br><input matInput type="text" [(ngModel)]="title"/><br>
-    Opis Zadania: <br><input matInput type="text" [(ngModel)]="description"/><br><br>
+    Nazwa zadania: <br><input matInput type="text" [(ngModel)]="title" /><br>
+    Opis Zadania: <br><input matInput type="text" [(ngModel)]="description" /><br><br>
     <button class="btn btn-primary" (click)="addTodo()">Submit</button>
   </div>
   <br>
   <h3>Do zrobienia</h3>
+  
   <mat-accordion>
     <div *ngFor="let record of this.tasks">
-     <mat-expansion-panel>
+      <mat-expansion-panel>
         <mat-expansion-panel-header>
           <mat-panel-title>
             {{record.title}}
           </mat-panel-title>
         </mat-expansion-panel-header>
         <div class="description">
-          {{record.description}}<br><br>
+          <h5>opis</h5>
+          <div>{{record.description}}</div>
+
           <h5>sekcje edycji</h5>
-          Jeśli zmienić nazwę zadania zrób to tu:<br>
-          Nowa nazwa zadania: <input matInput type="text" [(ngModel)]="newTitle"/><br>
-          Nowy opis zadania: <input matInput type="text" [(ngModel)]="newDescription"/><br>
-          <button mat-raised-button color="primary" 
-          (click)="edit(record.id, record.title, record.description, 
-          newTitle, newDescription)"
-          >Edytuj</button>
+          <div>
+            Jeśli zmienić nazwę zadania zrób to tu:<br>
+            Nowa nazwa zadania: <br><input matInput type="text" [(ngModel)]="newTitle" /><br>
+            Nowy opis zadania: <br><input matInput type="text" [(ngModel)]="newDescription" />
+            <button mat-stroked-button color="primary" (click)="edit(record.id, record.title, record.description,  newTitle, newDescription)">Edytuj</button>
+          </div>
         </div>
 
         <div class="row align-items-center">
@@ -39,7 +40,7 @@
   <h3>Wykonane</h3>
   <mat-accordion>
     <div *ngFor="let record of this.doneTasks">
-     <mat-expansion-panel>
+      <mat-expansion-panel>
         <mat-expansion-panel-header>
           <mat-panel-title>
             {{record.title}}
@@ -47,6 +48,7 @@
         </mat-expansion-panel-header>
         <div class="description">
           {{record.description}}
+          <br>
           <button mat-raised-button color="warn" (click)="remove('doneTodos', record.id)">Usuń</button>
         </div>
       </mat-expansion-panel>

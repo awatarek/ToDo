@@ -1,6 +1,15 @@
+
+input[type=text]{
+    border-radius: 2px;
+    margin: 2px;
+}
+
 .content
 {
-    margin: 5%;
+    margin: auto;
+    padding-top: 20px;
+    width: 600px;
+    height: auto;
 }
 
 .mat-accordion{

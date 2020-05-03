@@ -26,12 +26,12 @@ export class TodoService {
     public addTodo(storageName: string, inputTitle: string, inputDescription: string, oldId: any) {
         if (storageName === 'todos') {
           this.higerTaskId();
-          this.task = new Todo(this.cacheID, inputTitle, inputDescription);
+          this.task = new Todo(this.cacheID, inputTitle, inputDescription, false);
           this.tasks = this.getTasks(storageName);
           this.tasks.push(this.task);
           this.saveToStorage(storageName, this.tasks);
         } else if (storageName === 'doneTodos') {
-          this.task = new Todo(oldId, inputTitle, inputDescription);
+          this.task = new Todo(oldId, inputTitle, inputDescription, true);
           this.doneTasks = this.getTasks(storageName);
           this.doneTasks.push(this.task);
           this.saveToStorage(storageName, this.doneTasks);
