@@ -28,6 +28,8 @@ export class TodoListComponent implements OnInit {
 
   public addTodo() {
     this.todoService.addTodo('todos', this.title, this.description, '');
+    this.title = '';
+    this.description = '';
     this.refresh();
   }
   public remove(storageName, id) {
