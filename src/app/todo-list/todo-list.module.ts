@@ -7,7 +7,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { FormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatRadioModule } from '@angular/material/radio';
-
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [
@@ -20,7 +20,8 @@ import { MatRadioModule } from '@angular/material/radio';
     MatButtonModule,
     FormsModule,
     MatDialogModule,
-    MatRadioModule
+    MatRadioModule,
+    MatInputModule
   ],
   exports: [
     TodoListComponent

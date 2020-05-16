@@ -12,7 +12,8 @@ export class TodoListComponent implements OnInit {
   public description: string;
   public tasks: Todo;
   public doneTasks: Todo;
-  public newText: string;
+  public newTitle: string;
+  public newDescription: string;
 
   constructor(private todoService: TodoService) {
   }
@@ -45,7 +46,8 @@ export class TodoListComponent implements OnInit {
       newDescription = oldDescriptio;
     }
     this.todoService.edit(id, newTitle, newDescription);
-    this.newText = '';
+    this.newTitle = '';
+    this.newDescription = '';
     this.refresh();
   }
 

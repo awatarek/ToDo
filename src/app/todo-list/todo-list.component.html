@@ -1,12 +1,20 @@
 <div class="content">
-  <div>
-    Nazwa zadania: <br><input matInput type="text" [(ngModel)]="title" /><br>
-    Opis Zadania: <br><input matInput type="text" [(ngModel)]="description" /><br><br>
+  <form>
+    <mat-form-field class="col-6">
+      <mat-label>Nazwa zadania</mat-label>
+      <input matInput placeholder="np. zrób pranie" [(ngModel)]="title" name="title">
+    </mat-form-field>
+    <mat-form-field class="col-6">
+      <mat-label>Opis Zadania</mat-label>
+      <textarea matInput placeholder="np. pamiętaj by odwirować pranie" [(ngModel)]="description"
+        name="description"></textarea>
+    </mat-form-field>
+    <br>
     <button class="btn btn-primary" (click)="addTodo()">Dodaj zadanie</button>
-  </div>
+  </form>
   <br>
   <h3>Do zrobienia</h3>
-  
+
   <mat-accordion>
     <div *ngFor="let record of this.tasks">
       <mat-expansion-panel>
@@ -16,19 +24,33 @@
           </mat-panel-title>
         </mat-expansion-panel-header>
         <div class="description">
-          <h5>opis</h5>
-          <div>{{record.description}}</div>
+          <h6>Opis</h6>
+          <p>
+            {{record.description}}
+          </p>
 
-          <h5>sekcje edycji</h5>
+          <h6>
+            Sekcje edycji
+          </h6>
+
           <div>
-            Jeśli zmienić nazwę zadania zrób to tu:<br>
-            Nowa nazwa zadania: <br><input matInput type="text" [(ngModel)]="newTitle" /><br>
-            Nowy opis zadania: <br><input matInput type="text" [(ngModel)]="newDescription" />
-            <button mat-stroked-button color="primary" (click)="edit(record.id, record.title, record.description,  newTitle, newDescription)">Edytuj</button>
+            <form>
+              <mat-form-field class="col-6">
+                <mat-label>Nowa nazwa zadania:</mat-label>
+                <input matInput placeholder="np. zrób pranie" [(ngModel)]="this.newTitle" name="newTitle">
+              </mat-form-field>
+              <mat-form-field class="col-6">
+                <mat-label>Nowy opis zadania:</mat-label>
+                <textarea matInput placeholder="np. pamiętaj by odwirować pranie" [(ngModel)]="this.newDescription"
+                  name="newDescription"></textarea>
+              </mat-form-field>
+            </form>
           </div>
         </div>
 
         <div class="row align-items-center">
+          <button mat-stroked-button color="primary"
+            (click)="edit(record.id, record.title, record.description,  this.newTitle, this.newDescription)">Edytuj</button>
           <button mat-raised-button color="primary" (click)="done(record.id)">Wykonane</button>
           <button mat-raised-button color="warn" (click)="remove('todos', record.id)">Usuń</button>
         </div>
@@ -46,11 +68,13 @@
             {{record.title}}
           </mat-panel-title>
         </mat-expansion-panel-header>
+        <h6>
+          Opis
+        </h6>
         <div class="description">
           {{record.description}}
-          <br>
-          <button mat-raised-button color="warn" (click)="remove('doneTodos', record.id)">Usuń</button>
         </div>
+        <button mat-raised-button color="warn" (click)="remove('doneTodos', record.id)">Usuń</button>
       </mat-expansion-panel>
     </div>
   </mat-accordion>
