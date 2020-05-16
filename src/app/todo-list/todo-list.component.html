@@ -17,7 +17,7 @@
 
   <mat-accordion>
     <div *ngFor="let record of this.tasks">
-      <mat-expansion-panel>
+      <mat-expansion-panel *ngIf="record.done == false">
         <mat-expansion-panel-header>
           <mat-panel-title>
             {{record.title}}
@@ -52,17 +52,18 @@
           <button mat-stroked-button color="primary"
             (click)="edit(record.id, record.title, record.description,  this.newTitle, this.newDescription)">Edytuj</button>
           <button mat-raised-button color="primary" (click)="done(record.id)">Wykonane</button>
-          <button mat-raised-button color="warn" (click)="remove('todos', record.id)">Usuń</button>
+          <button mat-raised-button color="warn" (click)="remove(record.id)">Usuń</button>
         </div>
       </mat-expansion-panel>
     </div>
   </mat-accordion>
 
   <br>
+
   <h3>Wykonane</h3>
   <mat-accordion>
-    <div *ngFor="let record of this.doneTasks">
-      <mat-expansion-panel>
+    <div *ngFor="let record of this.tasks">
+      <mat-expansion-panel *ngIf="record.done == true">
         <mat-expansion-panel-header>
           <mat-panel-title>
             {{record.title}}
@@ -74,7 +75,7 @@
         <div class="description">
           {{record.description}}
         </div>
-        <button mat-raised-button color="warn" (click)="remove('doneTodos', record.id)">Usuń</button>
+        <button mat-raised-button color="warn" (click)="remove(record.id)">Usuń</button>
       </mat-expansion-panel>
     </div>
   </mat-accordion>

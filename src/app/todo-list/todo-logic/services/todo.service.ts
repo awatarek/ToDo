@@ -23,23 +23,17 @@ export class TodoService {
         localStorage.setItem('Id Task', this.cacheID);
     }
 
-    public addTodo(storageName: string, inputTitle: string, inputDescription: string, oldId: any) {
-        if (storageName === 'todos') {
+    public addTodo(inputTitle: string, inputDescription: string) {
           this.higerTaskId();
           this.task = new Todo(this.cacheID, inputTitle, inputDescription, false);
-          this.tasks = this.getTasks(storageName);
+          this.tasks = this.getTasks();
           this.tasks.push(this.task);
-          this.saveToStorage(storageName, this.tasks);
-        } else if (storageName === 'doneTodos') {
-          this.task = new Todo(oldId, inputTitle, inputDescription, true);
-          this.doneTasks = this.getTasks(storageName);
-          this.doneTasks.push(this.task);
-          this.saveToStorage(storageName, this.doneTasks);
-        }
+          this.saveToStorage(this.tasks);
+
     }
 
-    public getTasks(storageName: string) {
-     let localStorageItem = JSON.parse(localStorage.getItem(storageName));
+    public getTasks() {
+     let localStorageItem = JSON.parse(localStorage.getItem('todos'));
      if (localStorageItem == null) {
        return localStorageItem = [];
      } else {
@@ -47,38 +41,39 @@ export class TodoService {
      }
     }
 
-    public saveToStorage(storageName: string, tasks: Todo) {
-      localStorage.setItem(storageName, JSON.stringify({ task: tasks }));
+    public saveToStorage( tasks: Todo) {
+      localStorage.setItem('todos', JSON.stringify({ task: tasks }));
     }
 
-    public remove(storageName: string, id: number) {
-      this.tasks = this.getTasks(storageName);
+    public remove(id: number) {
+      this.tasks = this.getTasks();
       this.tasks = this.tasks.filter((task) => task.id !== id);
-      this.saveToStorage(storageName, this.tasks);
+      this.saveToStorage(this.tasks);
     }
 
     public edit(id: number, newTitle: string, newDescription: string) {
-      this.tasks = this.getTasks('todos');
+      this.tasks = this.getTasks();
       const editData = {eid: id, eTitle: newTitle, eDescription: newDescription};
+
       this.tasks.forEach( value => {
         if (value.id === editData.eid) {
           value.title = editData.eTitle;
           value.description = editData.eDescription;
         }
       });
-      this.saveToStorage('todos', this.tasks);
+
+      this.saveToStorage(this.tasks);
     }
 
     public done(id: number) {
-      this.tasks = this.getTasks('todos');
-      let doneTask;
+      this.tasks = this.getTasks();
+  
       this.tasks.forEach( value => {
         if (value.id === id) {
-          doneTask = value;
+          value.done = true;
         }
       });
-      this.remove('todos', id);
-      this.addTodo('doneTodos', doneTask.title, doneTask.description, id);
 
+      this.saveToStorage(this.tasks);
     }
 }

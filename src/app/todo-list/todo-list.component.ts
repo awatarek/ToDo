@@ -23,18 +23,18 @@ export class TodoListComponent implements OnInit {
     this.refresh();
   }
   public refresh() {
-    this.tasks = this.todoService.getTasks('todos');
-    this.doneTasks = this.todoService.getTasks('doneTodos');
+    this.tasks = this.todoService.getTasks();
   }
 
   public addTodo() {
-    this.todoService.addTodo('todos', this.title, this.description, '');
+    this.todoService.addTodo(this.title, this.description);
     this.title = '';
     this.description = '';
     this.refresh();
   }
-  public remove(storageName, id) {
-    this.todoService.remove(storageName, id);
+
+  public remove(id) {
+    this.todoService.remove(id);
     this.refresh();
   }
 
